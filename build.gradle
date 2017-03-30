@@ -1,0 +1,25 @@
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.0'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+ext {
+    compileSdkVersion = 24
+    buildToolsVersion = "24.0.2"
+    applicationId = "net.oschina.app"
+    minSdkVersion = 15
+    targetSdkVersion = 24
+    versionCode = 266
+    versionName = "v2.6.6(1609281026)"
+}
