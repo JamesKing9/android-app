@@ -50,8 +50,8 @@ public class CyptoUtils {
     /**
      * DES算法，解密
      *
+	 * @param key  解密私钥，长度不能够小于8位
      * @param data 待解密字符串
-     * @param key  解密私钥，长度不能够小于8位
      * @return 解密后的字节数组
      * @throws Exception 异常
      */

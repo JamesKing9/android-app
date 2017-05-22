@@ -4,7 +4,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 /**
  * 登录用户实体类
- * 
+ * 是客户端用来保存 user 信息的实体类
  * @author liux (http://my.oschina.net/liux)
  * @version 1.0
  * @created 2012-3-21
@@ -79,6 +79,7 @@ public class User extends Entity {
 
     private String pwd;
 
+    /** 是否记住用户名和密码 */
     private boolean isRememberMe;
 
     public int getId() {

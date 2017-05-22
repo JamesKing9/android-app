@@ -82,7 +82,9 @@ public class AppContext extends BaseApplication {
         HttpConfig.CACHEPATH = "OSChina/ImageCache";
     }
 
-    /** 登录操作的初始化 */
+    /**
+     * 登录操作的初始化
+     */
     private void initLogin() {
         User user = getLoginUser();
         if (null != user && user.getId() > 0) { /* 如果用户存在，且id 大于0*/
@@ -170,6 +172,7 @@ public class AppContext extends BaseApplication {
      */
     @SuppressWarnings("serial")
     public void saveUserInfo(final User user) {
+        /* 获取用户的id 复制给 登录id*/
         this.loginUid = user.getId();
         setProperties(new Properties() {
             {
@@ -183,7 +186,7 @@ public class AppContext extends BaseApplication {
                 setProperty("user.followers", String.valueOf(user.getFollowers()));
                 setProperty("user.fans", String.valueOf(user.getFans()));
                 setProperty("user.score", String.valueOf(user.getScore()));
-                setProperty("user.favoritecount",
+                setProperty("user.favoritecount", //当前用户的收藏
                         String.valueOf(user.getFavoritecount()));
                 setProperty("user.gender", String.valueOf(user.getGender()));
                 setProperty("user.isRememberMe",
@@ -223,7 +226,9 @@ public class AppContext extends BaseApplication {
      * @return
      */
     public User getLoginUser() {
+        //获取 User 实例
         User user = new User();
+        //给 User 实例 设置属性
         user.setId(StringUtils.toInt(getProperty("user.uid"), 0));
         user.setName(getProperty("user.name"));
         user.setPortrait(getProperty("user.face"));
@@ -268,7 +273,13 @@ public class AppContext extends BaseApplication {
         return loginUid;
     }
 
+    /**
+     * 判断用户是否已经登录
+     *
+     * @return
+     */
     public boolean isLogin() {
+        //如果用户已经登录，则有一个不为零的登录id，即loginUid
         return loginUid != 0;
     }
 

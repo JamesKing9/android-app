@@ -119,6 +119,10 @@ public abstract class BaseActivity extends AppCompatActivity implements
         return R.string.app_name;
     }
 
+    /**
+     * 是否有返回按钮
+     * @return
+     */
     protected boolean hasBackButton() {
         return false;
     }

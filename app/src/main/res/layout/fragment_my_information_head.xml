@@ -102,6 +102,7 @@
 
         </FrameLayout>
 
+        <!--没有登录时，该控件时隐藏的；用户登录后，该控件显示；-->
         <LinearLayout
             android:id="@+id/lay_about_info"
             android:layout_width="match_parent"

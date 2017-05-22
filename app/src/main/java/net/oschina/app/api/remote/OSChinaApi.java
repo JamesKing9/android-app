@@ -1756,6 +1756,7 @@ public class OSChinaApi {
 
     /**
      * 获取个人信息
+     * 使用 GET 方法请求服务器来获取个人信息
      */
     public static void getUserInfo(TextHttpResponseHandler handler) {
         ApiHttpClient.get("action/apiv2/user_info", handler);

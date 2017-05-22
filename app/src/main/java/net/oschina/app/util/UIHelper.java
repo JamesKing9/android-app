@@ -119,7 +119,8 @@ public class UIHelper {
     private static final String SHOWIMAGE = "ima-api:action=showImage&data=";
 
     /**
-     * 显示登录界面
+     * 显示登录界面的方法：
+     * 需要显示登录的地方就会调用该方法
      *
      * @param context
      */

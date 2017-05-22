@@ -423,10 +423,10 @@ public class StringUtils {
     }
 
     /**
-     * 字符串转整数
+     * 字符串转整数，可以设置默认值
      *
      * @param str
-     * @param defValue
+     * @param defValue default value 默认值
      * @return
      */
     public static int toInt(String str, int defValue) {

@@ -58,9 +58,15 @@ public class AppConfig {
             + "OSChina"
             + File.separator + "download" + File.separator;
 
+    /** 上下文 */
     private Context mContext;
     private static AppConfig appConfig;
 
+    /**
+     * 通过上下文获取 app 的配置实例
+     * @param context
+     * @return
+     */
     public static AppConfig getAppConfig(Context context) {
         if (appConfig == null) {
             appConfig = new AppConfig();
@@ -78,11 +84,17 @@ public class AppConfig {
 
     public String get(String key) {
         Properties props = get();
-        return (props != null) ? props.getProperty(key) : null;
+        return (props != null) ? props.getProperty(key) : null; //如果props不为空，则通过keys获取相应的values；否则返回null；
     }
 
+    /**
+     *
+     * @return
+     */
     public Properties get() {
+        //文件输入流：从一个文件中获取输入的字节
         FileInputStream fis = null;
+        /* java.util.Properties */
         Properties props = new Properties();
         try {
             // 读取files目录下的config
@@ -93,7 +105,7 @@ public class AppConfig {
             fis = new FileInputStream(dirConf.getPath() + File.separator
                     + APP_CONFIG);
 
-            props.load(fis);
+            props.load(fis); //从输入流中读取一个property list (key and element pairs)
         } catch (Exception e) {
         } finally {
             try {

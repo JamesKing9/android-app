@@ -67,7 +67,7 @@ import cz.msebera.android.httpclient.protocol.HttpContext;
  * @author kymjs (http://www.kymjs.com/)
  */
 public class LoginActivity extends BaseActivity implements IUiListener {
-
+    /*com.tencent.tauth.IUiListener*/
     public static final int REQUEST_CODE_INIT = 0;
     private static final String BUNDLE_KEY_REQUEST_CODE = "BUNDLE_KEY_REQUEST_CODE";
     protected static final String TAG = LoginActivity.class.getSimpleName();
@@ -132,18 +132,21 @@ public class LoginActivity extends BaseActivity implements IUiListener {
         }
     }
 
-    /** 处理普通登录的逻辑：账号密码登录 */
+    /**
+     * 处理普通登录的逻辑：账号密码登录
+     */
     private void handleLogin() {
-
+        // 如果提前的检查为 true，说明不符合登录的条件，则结束当前的登录处理方法。
+        // 如果为 false，说明符合登录条件，则继续该方法的后面的逻辑
         if (prepareForLogin()) {
             return;
         }
-
         // if the data has ready
         mUserName = mEtUserName.getText().toString();
         mPassword = mEtPassword.getText().toString();
 
         showWaitDialog(R.string.progress_login);
+        // 客户端的接口类OSChinaApi 调用 login() 方法来实现登录的逻辑
         OSChinaApi.login(mUserName, mPassword, mHandler);
     }
 
@@ -206,32 +209,33 @@ public class LoginActivity extends BaseActivity implements IUiListener {
 
     }
 
-    /** 普通登录的 预处理 */
+    /**
+     * 普通登录的一些提前检查
+     * 默认为 false
+     */
     private boolean prepareForLogin() {
         /** 检查设备的网络状态 */
         if (!TDevice.hasInternet()) {
             AppContext.showToastShort(R.string.tip_no_internet);
             return true;
         }
-        /** 提示输入 用户名 */
+        /** 如果用户没有输入用户名和密码，而是直接点击“登录”，则提示“请输入邮箱/用户名”*/
         if (mEtUserName.length() == 0) {
             mEtUserName.setError("请输入邮箱/用户名");
             mEtUserName.requestFocus();
             return true;
         }
-        /** 提示输入 密码 */
+        /** 如果用户输入了用户名，而没有输入密码，就直接点击“登录”，则提示“请输入密码” */
         if (mEtPassword.length() == 0) {
             mEtPassword.setError("请输入密码");
             mEtPassword.requestFocus();
             return true;
         }
-
         return false;
     }
 
     @Override
     public void initData() {
-
         mEtUserName.setText(AppContext.getInstance()
                 .getProperty("user.account"));
         mEtPassword.setText(CyptoUtils.decode("oschinaApp", AppContext
@@ -242,6 +246,7 @@ public class LoginActivity extends BaseActivity implements IUiListener {
      * QQ登陆
      */
     private void qqLogin() {
+        /* 将登录方式赋值为 QQ 登录的方式*/
         loginType = LOGIN_TYPE_QQ;
         Tencent mTencent = Tencent.createInstance(AppConfig.APP_QQ_KEY, this);
         mTencent.login(this, "all", this);
@@ -289,7 +294,7 @@ public class LoginActivity extends BaseActivity implements IUiListener {
     /**
      * 新浪登录
      * <ul>
-     *     <li> 没有客户端就调用</li>
+     * <li> 没有客户端就调用</li>
      * </ul>
      */
     private void sinaLogin() {
@@ -482,7 +487,7 @@ public class LoginActivity extends BaseActivity implements IUiListener {
             // 保存登录信息
             loginUserBean.getUser().setAccount(mUserName);
             loginUserBean.getUser().setPwd(mPassword);
-            loginUserBean.getUser().setRememberMe(true);
+            loginUserBean.getUser().setRememberMe(true); //设置为记住用户输入的用户名和密码
             AppContext.getInstance().saveUserInfo(loginUserBean.getUser());
             hideWaitDialog();
             handleLoginSuccess();

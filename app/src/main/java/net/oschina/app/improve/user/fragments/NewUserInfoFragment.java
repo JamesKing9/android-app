@@ -209,7 +209,6 @@ public class NewUserInfoFragment extends BaseFragment implements View.OnClickLis
     @Override
     protected void initData() {
         // super.initData();
-
         UserV2 userInfo = (UserV2) CacheManager.readObject(getActivity(), CACHE_NAME);
         if (userInfo != null) {
             updateView(userInfo);
@@ -231,8 +230,9 @@ public class NewUserInfoFragment extends BaseFragment implements View.OnClickLis
         mInfo = AppContext.getInstance().getLoginUser();
         mIsUploadIcon = false;
         NoticeManager.bindNotify(this);
+        //获取是否登录
         boolean login = AppContext.getInstance().isLogin();
-        if (!login) {
+        if (!login) { //如果没有登录
             hideView();
         } else {
             if (TDevice.hasInternet()) {
@@ -321,19 +321,19 @@ public class NewUserInfoFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void sendRequestData() {
+        /* 获取服务器端的用户个人信息*/
         OSChinaApi.getUserInfo(textHandler);
     }
 
     /**
      * init solar view
+     * 初始化“solar”控件，就是像星星一样环绕的控件
      */
     private void initSolar() {
-
         if (mRoot != null) {
             mRoot.post(new Runnable() {
                 @Override
                 public void run() {
-
                     if (mRlShowInfo == null) return;
                     int width = mRlShowInfo.getWidth();
                     float rlShowInfoX = mRlShowInfo.getX();
@@ -383,7 +383,7 @@ public class NewUserInfoFragment extends BaseFragment implements View.OnClickLis
     }
 
     /**
-     *
+     * 隐藏一些控件，显示“点击头像登录”来让用户点击
      */
     private void hideView() {
         mCirclePortrait.setImageResource(R.mipmap.widget_dface);
@@ -410,21 +410,22 @@ public class NewUserInfoFragment extends BaseFragment implements View.OnClickLis
             R.id.ly_favorite, R.id.ly_following, R.id.ly_follower, R.id.rl_message, R.id.rl_blog, R.id.rl_info_avtivities,
             R.id.rl_team
     })
+
+    //处理用户的点击事件
     @Override
     public void onClick(View v) {
-
         int id = v.getId();
 
-        if (id == R.id.iv_logo_setting) {
+        if (id == R.id.iv_logo_setting) { //点击“设置”的图标
             UIHelper.showSetting(getActivity());
-        } else {
-            if (!AppContext.getInstance().isLogin()) {
+        } else { //如果用户点击除了“设置”控件的任何地方，则进入下面的判断
+            if (!AppContext.getInstance().isLogin()) { //如果用户没有登录，则都将跳转到登录界面，并结束掉该方法的逻辑
                 UIHelper.showLoginActivity(getActivity());
                 return;
             }
-
+            //如果用户已经登录过了，则进行下面的逻辑
             switch (id) {
-                case R.id.iv_logo_zxing:
+                case R.id.iv_logo_zxing: //点击“二维码”图标，给当前用户生成一个二维码
                     MyQRCodeDialog dialog = new MyQRCodeDialog(getActivity());
                     dialog.show();
                     break;

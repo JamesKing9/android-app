@@ -97,6 +97,14 @@ public class DialogHelp {
         return builder;
     }
 
+    /**
+     * 获得一个可选择的对话框
+     * @param context
+     * @param title
+     * @param arrays
+     * @param onClickListener
+     * @return
+     */
     public static AlertDialog.Builder getSelectDialog(Context context, String title, String[] arrays, DialogInterface.OnClickListener onClickListener) {
         AlertDialog.Builder builder = getDialog(context);
         builder.setItems(arrays, onClickListener);
