@@ -18,6 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String NOTE_TABLE_NAME = "osc_Notebook";
 
+    /** 建表语句 */
     public static final String CREATE_NOTE_TABLE = "create table "
             + NOTE_TABLE_NAME
             + " (_id integer primary key autoincrement, iid integer,"
@@ -29,6 +30,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + NOTE_TABLE_NAME + "(" + "_id integer primary key autoincrement, "
             + "news_id interger, title varchar(10), " + ")";
 
+    /**
+     * 构造函数中创建数据库
+     * @param context
+     */
     public DatabaseHelper(Context context) {
         super(context, OSC_DATABASE_NAME, null, 1);
     }

@@ -32,8 +32,11 @@ import cz.msebera.android.httpclient.conn.ssl.SSLSocketFactory;
 
 @SuppressWarnings("WeakerAccess")
 public class ApiHttpClient {
-
+    /**
+     * 主机地址
+     */
     public final static String HOST = "www.oschina.net";
+    /** API 的格式字符串，%s 占位符 表示后面接 String类型的数据 */
     private static String API_URL = "https://www.oschina.net/%s";
 //    private static String API_URL = "https://192.168.1.10/%s";
 
@@ -72,6 +75,11 @@ public class ApiHttpClient {
                 params);
     }
 
+    /**
+     * 获取服务器的绝对路径
+     * @param partUrl
+     * @return
+     */
     public static String getAbsoluteApiUrl(String partUrl) {
         String url = partUrl;
         if (!partUrl.startsWith("http:") && !partUrl.startsWith("https:")) {
@@ -100,8 +108,21 @@ public class ApiHttpClient {
         log("POST " + partUrl);
     }
 
+    /**
+     * POST 方法提交表单
+     * <ul>
+     *     方法内部封装了“com.loopj.android.http.AsyncHttpClient”的 post 方法来完成 POST 请求。
+     * </ul>
+     * @param partUrl 请求的服务器地址
+     * @param params 请求参数
+     * @param handler 异步网络响应的 handler
+     */
     public static void post(String partUrl, RequestParams params,
                             AsyncHttpResponseHandler handler) {
+        /*com.loopj.android.http.AsyncHttpClient.post(
+                            java.lang.String,
+                            com.loopj.android.http.RequestParams,
+                            com.loopj.android.http.ResponseHandlerInterface)*/
         client.post(getAbsoluteApiUrl(partUrl), params, handler);
         log("POST " + partUrl + "&" + params);
     }

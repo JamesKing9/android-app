@@ -22,22 +22,35 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URLEncoder;
 
+/**
+ * 接口类
+ * <p>
+ *     和服务器交互的接口 API
+ * </p>
+ */
 public class OSChinaApi {
 
     /**
      * 登陆
-     *
-     * @param username
-     * @param password
-     * @param handler
+     *<ul>
+     *     客户端通过该方法将用户输入的用户名和密码通过 POST 方法提交到
+     *     服务器端进行比对，如果服务器的数据库中有该用户的id，则完成登录
+     *</ul>
+     * @param username 传入用户名
+     * @param password 传入密码
+     * @param handler 异步处理
      */
     public static void login(String username, String password,
                              AsyncHttpResponseHandler handler) {
+        // 来源于 'com.loopj.android:android-async-http:1.4.9'
         RequestParams params = new RequestParams();
         params.put("username", username);
         params.put("pwd", password);
-        params.put("keep_login", 1);
+        params.put("keep_login", 1); //是否保存登录状态，“1”表示“保存登录状态”
+        /** 用户登录认证的 url */
         String loginurl = "action/api/login_validate";
+        /* 使用 POST 请求异步提交参数，将根据loginurl
+         和 params 拼接成完整的服务器资源地址*/
         ApiHttpClient.post(loginurl, params, handler);
     }
 
